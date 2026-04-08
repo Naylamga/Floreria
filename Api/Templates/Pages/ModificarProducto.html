@@ -1,0 +1,20 @@
+{% extends 'Base.html' %}
+
+{% load static %}
+
+{% block cuerpo %}
+<div class="contenedor_Formulario">
+    <img src="{% static 'src/Forms/a.jpg' %}" alt="">
+    <form action="" method="post" enctype="multipart/form-data">
+        <h1>Modificar Productos</h1>
+        {{Formulario}}
+        {% csrf_token %}
+        <input type="submit" value="Modificar Producto" class="btnr">
+        {% if Mensaje %}
+        <div class="alert alert-success" role="alert" id="Alert">
+            {{Mensaje}}
+        </div>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}
