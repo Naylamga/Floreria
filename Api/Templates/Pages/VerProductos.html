@@ -3,33 +3,39 @@
 {% load static %}
 
 {% block Intermedio %}
-<section class="verproductosint"></section>
+<section class="hero-secondary products-hero">
+    <div class="container app-shell">
+        <h1>Catalogo de productos</h1>
+        <p>Explora los productos disponibles en la tienda.</p>
+    </div>
+</section>
 {% endblock %}
 
 
 {% block cuerpo %}
-
+<section class="toolbar-products">
+    <h2>Listado general</h2>
+</section>
 <div class="contenedor-productos">
     {% for i in ListarProductos %}
-    <div class="card">
-        <h3>{{ i.Nombre }}</h3>
-        <p><strong>Precio:</strong> ${{ i.Precio }}</p>
-        <p><strong>Cantidad:</strong> {{ i.Cantidad }}</p>
-        <p><strong>Categoría:</strong> {{ i.Categoria }}</p>
-        <p class="descripcion">{{ i.Descripcion }}</p>
-        <p class="fecha">{{ i.Fecha }}</p>
-
+    <article class="producto-card">
         {% if i.Imagen %}
-        <img src="{{ i.Imagen.url }}" alt="{{ i.Nombre }}">
+        <img src="{{ i.Imagen.url }}" alt="{{ i.Nombre }}" class="producto-img">
         {% else %}
-        <p>Sin imagen disponible</p>
+        <div class="producto-placeholder">Sin imagen disponible</div>
         {% endif %}
-        <a href="{% url 'Modificar' i.Codigo %}" class="btn btn-warning">Editar</a>
-        <a href="{% url 'Eliminar' i.Codigo %}" class="btn btn-warning">Eliminar</a>
-        
-    </div>
+
+        <div class="producto-body">
+            <h3>{{ i.Nombre }}</h3>
+            <p class="producto-precio">${{ i.Precio }}</p>
+            <p><strong>Cantidad:</strong> {{ i.Cantidad }}</p>
+            <p><strong>Categoria:</strong> {{ i.Categoria }}</p>
+            <p class="descripcion">{{ i.Descripcion }}</p>
+            <p class="fecha">{{ i.Fecha }}</p>
+        </div>
+    </article>
     {% empty %}
-    <p>No hay productos disponibles.</p>
+    <p class="empty-message">No hay productos disponibles.</p>
     {% endfor %}
 </div>
 

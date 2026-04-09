@@ -16,15 +16,19 @@ def Productos(request):
 
 def NuevoProductos(request):
     data={
-        'Formulario': FormularioProductos()
+        'Formulario': FormularioProductos(),
+        'ListarProductos': Producto.objects.all()
     }
     if request.method == 'POST':
         formulario = FormularioProductos(data=request.POST,files=request.FILES)
         if formulario.is_valid():
             formulario.save()
             data['Mensaje'] = "Producto Guardado Correctamente"
+            data['Formulario'] = FormularioProductos()
+            data['ListarProductos'] = Producto.objects.all()
         else:
             data['Mensaje'] = "Error al Guardar el Producto"
+            data['Formulario'] = formulario
     return render(request, 'Pages/NuevoProducto.html', data)
 
 

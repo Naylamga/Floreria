@@ -3,19 +3,29 @@
 {% load static %}
 
 {% block Intermedio %}
-<section class="nuevoproducto"></section>
+<section class="hero-secondary form-hero">
+    <div class="container app-shell">
+        <h1>Gestion de productos</h1>
+        <p>Agrega, edita o elimina productos desde esta seccion.</p>
+    </div>
+</section>
 {% endblock %}
 
 {% block cuerpo %}
-<div class="contenedor_Formulario">
-    <img src="{% static 'src/Forms/a.jpg' %}" alt="">
-    <form action="" method="post" enctype="multipart/form-data"S>
-        <h1>Registro de Productos</h1>
-        {{Formulario}}
+<div class="form-layout">
+    <aside class="form-aside">
+        <span class="label-soft">Gestion</span>
+        <h2>Registro de productos</h2>
+        <p>Completa los campos para agregar un nuevo producto al sistema.</p>
+        <a href="{% url 'Productos' %}" class="btn-light">Ir al catalogo</a>
+    </aside>
+    <form class="panel-form" action="" method="post" enctype="multipart/form-data">
+        <h3>Formulario de alta</h3>
         {% csrf_token %}
+        {{Formulario}}
         <input type="submit" value="Registrar Producto" class="btnr">
         {% if Mensaje %}
-        <div class="alert alert-success" role="alert" id="Alerta">
+        <div class="alert alert-success mt-2" role="alert" id="Alerta">
             {{Mensaje}}
         </div>
         {% endif %}
@@ -30,5 +40,35 @@
         }
     }, 2000)  //---> Tiempo que esta
 </script>
+
+<section class="toolbar-products mt-4">
+    <h2>Productos para gestionar</h2>
+</section>
+<div class="contenedor-productos">
+    {% for i in ListarProductos %}
+    <article class="producto-card">
+        {% if i.Imagen %}
+        <img src="{{ i.Imagen.url }}" alt="{{ i.Nombre }}" class="producto-img">
+        {% else %}
+        <div class="producto-placeholder">Sin imagen disponible</div>
+        {% endif %}
+
+        <div class="producto-body">
+            <h3>{{ i.Nombre }}</h3>
+            <p class="producto-precio">${{ i.Precio }}</p>
+            <p><strong>Cantidad:</strong> {{ i.Cantidad }}</p>
+            <p><strong>Categoria:</strong> {{ i.Categoria }}</p>
+            <p class="descripcion">{{ i.Descripcion }}</p>
+            <p class="fecha">{{ i.Fecha }}</p>
+        </div>
+        <div class="producto-actions">
+            <a href="{% url 'Modificar' i.Codigo %}" class="btn-light">Editar</a>
+            <a href="{% url 'Eliminar' i.Codigo %}" class="btn-danger-soft">Eliminar</a>
+        </div>
+    </article>
+    {% empty %}
+    <p class="empty-message">No hay productos registrados para gestionar.</p>
+    {% endfor %}
+</div>
 
 {% endblock %}

@@ -2,16 +2,30 @@
 
 {% load static %}
 
+{% block Intermedio %}
+<section class="hero-secondary form-hero">
+    <div class="container app-shell">
+        <h1>Modificar producto</h1>
+        <p>Actualiza la informacion de un producto existente.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block cuerpo %}
-<div class="contenedor_Formulario">
-    <img src="{% static 'src/Forms/a.jpg' %}" alt="">
-    <form action="" method="post" enctype="multipart/form-data">
-        <h1>Modificar Productos</h1>
-        {{Formulario}}
+<div class="form-layout">
+    <aside class="form-aside">
+        <span class="label-soft">Edicion</span>
+        <h2>Actualiza un producto</h2>
+        <p>Edita los campos necesarios y guarda los cambios para el catalogo.</p>
+        <a href="{% url 'Productos' %}" class="btn-light">Volver al catalogo</a>
+    </aside>
+    <form class="panel-form" action="" method="post" enctype="multipart/form-data">
+        <h3>Formulario de edicion</h3>
         {% csrf_token %}
+        {{Formulario}}
         <input type="submit" value="Modificar Producto" class="btnr">
         {% if Mensaje %}
-        <div class="alert alert-success" role="alert" id="Alert">
+        <div class="alert alert-success mt-2" role="alert" id="Alert">
             {{Mensaje}}
         </div>
         {% endif %}
