@@ -52,10 +52,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Project.urls'
 
+import os
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'Api' / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'Api', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,8 +123,6 @@ STATIC_ROOT=BASE_DIR / 'staticfiles'
 STATICFILES_DIRS=[
     BASE_DIR / "Api" / "static",
 ]
-
-
 
 import os
 
